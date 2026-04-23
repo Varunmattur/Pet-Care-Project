@@ -1,0 +1,9 @@
+
+{
+  "name": "PawPal AI - Your Smart Pet Care Assistant",
+  "description": "A comprehensive AI-powered pet care chatbot providing expert advice on nutrition, health, training, and emergency guidance for all types of pets.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

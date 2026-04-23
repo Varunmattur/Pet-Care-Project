@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adopter Dashboard</title>
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>Welcome</h3>
+                <div class="user-info">
+                    <div class="user-avatar"></div>
+                    <p></p>
+                </div>
+            </div>
+            <nav>
+                <ul class="sidebar-nav">
+                    <li><a onclick="loadPets()" style="cursor:pointer;display:block;padding:12px;border-radius:6px;">🐾 Available Pets</a></li>
+                </ul>
+            </nav>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+        <div class="main-content">
+            <div class="page-header">
+                <h1>🏡 Pets for Adoption</h1>
+            </div>
+            <div id="alerts"></div>
+            
+            <div style="background:white;padding:20px;border-radius:8px;margin-bottom:30px;box-shadow:0 1px 2px rgba(0,0,0,0.05);">
+                <h3>Filter Pets</h3>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:15px;align-items:end;margin-top:15px;">
+                    <div>
+                        <label style="display:block;margin-bottom:8px;font-weight:500;">Pet Type</label>
+                        <select id="species-filter" style="padding:10px;border:1px solid #e2e8f0;border-radius:6px;width:100%;">
+                            <option value="">All</option>
+                            <option value="Dog">Dogs</option>
+                            <option value="Cat">Cats</option>
+                            <option value="Bird">Birds</option>
+                            <option value="Rabbit">Rabbits</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display:block;margin-bottom:8px;font-weight:500;">Age Range</label>
+                        <select id="age-filter" style="padding:10px;border:1px solid #e2e8f0;border-radius:6px;width:100%;">
+                            <option value="">All Ages</option>
+                            <option value="0-2">0-2 years</option>
+                            <option value="2-5">2-5 years</option>
+                            <option value="5+">5+ years</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display:block;margin-bottom:8px;font-weight:500;">Sort By</label>
+                        <select id="sort-filter" style="padding:10px;border:1px solid #e2e8f0;border-radius:6px;width:100%;">
+                            <option value="name">Name</option>
+                            <option value="species">Species</option>
+                            <option value="age">Age</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="filterAndDisplay()">Apply</button>
+                </div>
+            </div>
+            
+            <div id="pets-container" class="content-grid"></div>
+        </div>
+    </div>
+
+    <div id="pet-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2>Pet Profile</h2><button class="close-btn" onclick="closeModal('pet-modal')">&times;</button></div>
+            <div id="pet-detail"></div>
+        </div>
+    </div>
+
+    <script src="/js/utils.js"></script>
+    <script src="/js/adopter-dashboard.js"></script>
+    <!-- AI Assistant Bubble Component -->
+<style>
+    #ai-bubble {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      width: 65px;
+      height: 65px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+  
+    #ai-bubble:hover {
+      transform: scale(1.1);
+    }
+  
+    #ai-bubble .ai-tooltip {
+      position: absolute;
+      right: 80px;
+      background: #111827;
+      color: #ffffff;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+  
+    #ai-bubble:hover .ai-tooltip {
+      opacity: 1;
+    }
+  </style>
+  
+  <div
+    id="ai-bubble"
+    onclick="window.open(
+      'https://aistudio.google.com/apps/drive/1aTqGRrZYYK2Bzbzg7p6jxnNhRvmWo2wt?fullscreenApplet=true&showPreview=true&showAssistant=true',
+      '_blank',
+      'noopener,noreferrer'
+    )"
+  >
+    🐾
+    <span class="ai-tooltip">
+      Use me to check whether to buy a pet or not
+    </span>
+  </div>
+</body>
+</html>

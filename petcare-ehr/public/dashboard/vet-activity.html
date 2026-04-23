@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Log - PetCareEHR</title>
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>Welcome</h3>
+                <div class="user-info">
+                    <div class="user-avatar"></div>
+                    <p></p>
+                </div>
+            </div>
+
+            <nav>
+                <ul class="sidebar-nav">
+                    <li><a href="/dashboard/vet.html">🔍 Search Pet</a></li>
+                    <li><a href="/dashboard/vet-activity.html" class="active">📊 Activity Log</a></li>
+                </ul>
+            </nav>
+
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <div class="page-header">
+                <h1>📊 Activity Log</h1>
+                <p>Track all your medical record updates and actions</p>
+            </div>
+
+            <div id="alerts-container"></div>
+
+            <!-- FILTERS -->
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+                <h3>Filter Activity</h3>
+                <div style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;">
+                    <select id="action-filter" style="padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px; flex: 1; min-width: 150px;">
+                        <option value="">All Actions</option>
+                        <option value="ADD_MEDICAL_RECORD">Medical Records</option>
+                        <option value="ADD_VACCINATION">Vaccinations</option>
+                        <option value="UPDATE_VACCINATION">Vaccination Updates</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="loadActivityLogs()">Apply Filter</button>
+                </div>
+            </div>
+
+            <!-- ACTIVITY TABLE -->
+            <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+                <h3>Recent Activity (Last 50 Actions)</h3>
+                <div id="activity-container" style="margin-top: 15px;">
+                    <p style="color: #64748b; text-align: center; padding: 40px;">Loading activity log...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/utils.js"></script>
+    <script src="/js/vet-activity.js"></script>
+</body>
+</html>

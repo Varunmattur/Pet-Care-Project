@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaccination Alerts - PetCareEHR</title>
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>Welcome</h3>
+                <div class="user-info">
+                    <div class="user-avatar"></div>
+                    <p></p>
+                </div>
+            </div>
+
+            <nav>
+                <ul class="sidebar-nav">
+                    <li><a href="/dashboard/owner.html">📋 My Pets</a></li>
+                    <li><a href="/dashboard/owner-alerts.html" class="active">🔔 Vaccination Alerts</a></li>
+                </ul>
+            </nav>
+
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <div class="page-header">
+                <h1>🔔 Vaccination Alerts</h1>
+                <p>Track your pets' vaccination schedules and upcoming appointments</p>
+            </div>
+
+            <div id="alerts-container"></div>
+
+            <!-- ALERTS SECTION -->
+            <div style="margin-bottom: 30px;">
+                <h3>Upcoming Vaccinations</h3>
+                <div id="upcoming-alerts" style="margin-top: 15px;"></div>
+            </div>
+
+            <!-- COMPLETED SECTION -->
+            <div style="margin-bottom: 30px;">
+                <h3>Completed Vaccinations</h3>
+                <div id="completed-alerts" style="margin-top: 15px;"></div>
+            </div>
+
+            <!-- OVERDUE SECTION -->
+            <div>
+                <h3 style="color: #dc2626;">⚠️ Overdue Vaccinations</h3>
+                <div id="overdue-alerts" style="margin-top: 15px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/utils.js"></script>
+    <script src="/js/owner-alerts.js"></script>
+</body>
+</html>

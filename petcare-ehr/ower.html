@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Dashboard</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <style>
+        /* Modernized AI Bubble styling */
+        #ai-bubble {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+            z-index: 1000;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        #ai-bubble:hover {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.5);
+        }
+        #ai-bubble::after {
+            content: 'Talk to AI Vet';
+            position: absolute;
+            right: 80px;
+            background: #334155;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            pointer-events: none;
+        }
+        #ai-bubble:hover::after {
+            opacity: 1;
+            visibility: visible;
+            right: 75px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>Welcome</h3>
+                <div class="user-info">
+                    <div class="user-avatar"></div>
+                    <p></p>
+                </div>
+            </div>
+            <nav>
+                <ul class="sidebar-nav">
+                    <li><a onclick="showSection('my-pets')" style="cursor:pointer;">🐾 My Pets</a></li>
+                    <li><a onclick="showSection('vets')" style="cursor:pointer;">🏥 Veterinarians</a></li>
+                    <li><a onclick="showSection('shop')" style="cursor:pointer;">🛒 Pet Shop</a></li>
+                </ul>
+            </nav>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+        <div class="main-content">
+            <div class="page-header">
+                <h1>🐾 Pet Owner Dashboard</h1>
+            </div>
+            <div id="alerts"></div>
+            
+            <div id="my-pets-section" class="section-content active">
+                <div style="display:flex;justify-content:space-between;margin-bottom:20px;">
+                    <h2>My Pets</h2>
+                </div>
+                <div id="pets-container" class="content-grid"></div>
+            </div>
+            
+            <div id="vets-section" class="section-content">
+                <h2>Veterinary Doctors</h2>
+                <div style="margin-bottom:20px;">
+                    <select id="vet-location-filter" style="padding:10px;border:1px solid #e2e8f0;border-radius:6px;">
+                        <option value="">All Locations</option>
+                        <option value="City A">City A</option>
+                        <option value="City B">City B</option>
+                        <option value="City C">City C</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="loadVets()" style="margin-left:10px;">Filter</button>
+                </div>
+                <div id="vets-container" class="content-grid"></div>
+            </div>
+            
+            <div id="shop-section" class="section-content">
+                <h2>Pet Shop Products</h2>
+                <div id="products-container" class="content-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pet-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2>Pet Details</h2><button class="close-btn" onclick="closeModal('pet-modal')">&times;</button></div>
+            <div id="pet-detail"></div>
+        </div>
+    </div>
+    
+    <script src="/js/utils.js"></script>
+    <script src="/js/owner-dashboard.js"></script>
+
+    <!-- Pointing directly to root index.html -->
+    <div id="ai-bubble" onclick="window.open('/index.html', '_blank')">
+        <span style="font-size:32px;">🐾</span>
+    </div>
+
+</body>
+</html>

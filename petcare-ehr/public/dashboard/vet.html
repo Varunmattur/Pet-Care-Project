@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veterinarian Dashboard - PetCareEHR</title>
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>Veterinarian</h3>
+                <div class="user-info">
+                    <div class="user-avatar"></div>
+                    <p></p>
+                </div>
+            </div>
+            <nav>
+                <ul class="sidebar-nav">
+                    <li><a onclick="document.getElementById('search-section').style.display='block'; document.getElementById('activity-section').style.display='none';" style="cursor:pointer;display:block;padding:12px;border-radius:6px;color:var(--text-dark);text-decoration:none;">🔍 Search Pets</a></li>
+                    <li><a onclick="loadActivityLog(); document.getElementById('search-section').style.display='none'; document.getElementById('activity-section').style.display='block';" style="cursor:pointer;display:block;padding:12px;border-radius:6px;color:var(--text-dark);text-decoration:none;">📊 Activity Log</a></li>
+                </ul>
+            </nav>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <div class="page-header">
+                <h1>🏥 Veterinarian Portal</h1>
+                <p>Manage patient medical records and health information</p>
+            </div>
+            <div id="alerts"></div>
+
+            <!-- SEARCH SECTION -->
+            <div id="search-section">
+                <!-- ADD PET BUTTON -->
+                <div style="background:white;padding:20px;border-radius:8px;margin-bottom:30px;box-shadow:0 1px 2px rgba(0,0,0,0.05);">
+                    <h3>➕ Add New Pet</h3>
+                    <p style="color:#64748b;margin:10px 0;">Register a new pet in the system with owner information</p>
+                    <button class="btn btn-primary" onclick="showAddPetModal()" style="margin-top:10px;">+ Add Pet</button>
+                </div>
+
+                <!-- SEARCH BY EMAIL -->
+                <div style="background:white;padding:20px;border-radius:8px;margin-bottom:30px;box-shadow:0 1px 2px rgba(0,0,0,0.05);">
+                    <h3>🔍 Search Pets by Owner Email</h3>
+                    <p style="color:#64748b;margin:10px 0;">Enter owner's email to view all their pets</p>
+                    <div style="display:flex;gap:10px;margin-top:15px;">
+                        <input type="email" id="email-input" placeholder="owner@example.com" style="flex:1;padding:10px;border:1px solid #e2e8f0;border-radius:6px;">
+                        <button class="btn btn-primary" onclick="searchEmail()">Search</button>
+                    </div>
+                </div>
+
+                <!-- SEARCH BY PET ID -->
+                <div style="background:white;padding:20px;border-radius:8px;margin-bottom:30px;box-shadow:0 1px 2px rgba(0,0,0,0.05);">
+                    <h3>🔍 Search Pet by ID</h3>
+                    <p style="color:#64748b;margin:10px 0;">Quick search using Pet ID</p>
+                    <div style="display:flex;gap:10px;margin-top:15px;">
+                        <input type="number" id="id-input" placeholder="Enter Pet ID" min="1" style="flex:1;padding:10px;border:1px solid #e2e8f0;border-radius:6px;">
+                        <button class="btn btn-primary" onclick="searchID()">Search</button>
+                    </div>
+                </div>
+
+                <!-- SEARCH RESULTS -->
+                <div id="search-results"></div>
+            </div>
+
+            <!-- ACTIVITY LOG SECTION -->
+            <div id="activity-section" style="display:none;">
+                <div style="background:white;padding:20px;border-radius:8px;box-shadow:0 1px 2px rgba(0,0,0,0.05);">
+                    <h3>📊 Your Activity Log</h3>
+                    <p style="color:#64748b;margin:10px 0;">Track all your actions in the system</p>
+                    <div id="activity-container" style="margin-top:20px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PET PROFILE MODAL -->
+    <div id="pet-profile" class="modal">
+        <div class="modal-content" style="max-height:85vh;overflow-y:auto;">
+            <div class="modal-header">
+                <h2>Pet Profile & Medical Records</h2>
+                <button class="close-btn" onclick="closeModal('pet-profile')">&times;</button>
+            </div>
+            <div id="profile-content"></div>
+        </div>
+    </div>
+
+    <!-- ADD PET MODAL -->
+    <div id="add-pet-modal" class="modal">
+        <div class="modal-content" style="max-height:85vh;overflow-y:auto;">
+            <div class="modal-header">
+                <h2>Add New Pet</h2>
+                <button class="close-btn" onclick="closeModal('add-pet-modal')">&times;</button>
+            </div>
+            <form id="add-pet-form" onsubmit="return false;"></form>
+        </div>
+    </div>
+
+    <!-- ADD MEDICAL RECORD MODAL -->
+    <div id="medical-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Medical Record</h2>
+                <button class="close-btn" onclick="closeModal('medical-modal')">&times;</button>
+            </div>
+            <form id="medical-form" onsubmit="return false;"></form>
+        </div>
+    </div>
+
+    <!-- ADD VACCINATION MODAL -->
+    <div id="vacc-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Vaccination Alert</h2>
+                <button class="close-btn" onclick="closeModal('vacc-modal')">&times;</button>
+            </div>
+            <form id="vacc-form" onsubmit="return false;"></form>
+        </div>
+    </div>
+
+    <!-- ADD CHECKUP MODAL -->
+    <div id="checkup-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Schedule Checkup</h2>
+                <button class="close-btn" onclick="closeModal('checkup-modal')">&times;</button>
+            </div>
+            <form id="checkup-form" onsubmit="return false;"></form>
+        </div>
+    </div>
+
+    <script src="/js/utils.js"></script>
+    <script src="/js/vet-dashboard.js"></script>
+</body>
+</html>
